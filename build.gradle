@@ -75,6 +75,7 @@ tasks.withType (AbstractCompile).each {
 
 task gitignore << {
     def pName = project.properties.group.tokenize('.')[0]
+    def extra = "!src/*/*/$pName\n"
     ant.echo ('preparing .gitignore file')
     def gitignoreFile = $/
 # for java
@@ -101,6 +102,6 @@ target/
 
 # for project
 /$
-    def contents = "${gitignoreFile}${pName}/\n"
+    def contents = "${gitignoreFile}${pName}/\n${extra}"
     new File('.gitignore').write(contents, 'UTF-8')
 }

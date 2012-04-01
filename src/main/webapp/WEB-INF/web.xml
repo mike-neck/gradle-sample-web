@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns='http://java.sun.com/xml/ns/javaee' xmlns:web='http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd' xsi:schemaLocation='http://java.sun.com/xml/ns/javaee&#10;            http://java.sun.com/xml/ns/javaeeweb-app_2_5.xsd' id='sample_web' version='2.5'>
+
+    <servlet>
+        <servlet-name>myServlet</servlet-name>
+        <servlet-class>org.mikeneck.web.sample.MyServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>myServlet</servlet-name>
+        <url-pattern>/mys</url-pattern>
+    </servlet-mapping>
+</web-app>
