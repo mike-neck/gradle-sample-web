@@ -1,0 +1,80 @@
+def langs = ['java', 'groovy']
+langs.each {
+    apply plugin : it
+}
+apply plugin : 'war'
+apply plugin : 'idea'
+apply plugin : 'jetty'
+
+group = 'org.mikeneck.web.sample'
+version = '1.0.0'
+
+def encoding = {it.encoding = 'UTF-8'}
+
+repositories {
+    mavenCentral ()
+}
+
+dependencies {
+    compile 'org.apache.geronimo.specs:geronimo-servlet_2.5_spec:1.2'
+    groovy  'org.codehaus.groovy:groovy:1.8.6'
+    testCompile ('junit:junit-dep:4.10') {
+        exclude module : 'org.hamcrest:hamcrest-core'
+    }
+    testCompile 'org.hamcrest:hamcrest-library:1.2.1'
+}
+
+tasks.idea {
+    doFirst {
+        def dir = []
+        sourceSets.each { src ->
+            langs.each { lang ->
+                dir << "src/${src.name}/${lang}/${project.properties.group.replace('.', '/')}"
+            }
+            dir << "src/${src.name}/resources"
+        }
+        dir << "${project.properties.webAppDirName}/WEB-INF"
+        dir.each {
+            if (new File(it).exists() == false) {
+                ant.echo it
+                ant.mkdir dir : it
+            }
+        }
+    }
+}
+
+tasks.withType (AbstractCompile).each {
+    encoding it.options
+}
+
+task gitignore << {
+    def pName = project.properties.group.tokenize('.')[0]
+    ant.echo ('preparing .gitignore file')
+    def gitignoreFile = $/
+# for java
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# for idea
+*.iml
+*.ipr
+*.iws
+.idea/
+out/
+
+# dor gradle
+.gradle
+target/
+
+# for git
+.gitignore
+
+# for project
+/$
+    def contents = "${gitignoreFile}${pName}/\n"
+    new File('.gitignore').write(contents, 'UTF-8')
+}
