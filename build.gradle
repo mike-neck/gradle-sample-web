@@ -24,23 +24,47 @@ dependencies {
     testCompile 'org.hamcrest:hamcrest-library:1.2.1'
 }
 
-tasks.idea {
-    doFirst {
-        def dir = []
-        sourceSets.each { src ->
-            langs.each { lang ->
-                dir << "src/${src.name}/${lang}/${project.properties.group.replace('.', '/')}"
-            }
-            dir << "src/${src.name}/resources"
+def structure = {
+    def dir = []
+    sourceSets.each { src ->
+        langs.each { lang ->
+            dir << "src/${src.name}/${lang}/${project.properties.group.replace('.', '/')}"
         }
-        dir << "${project.properties.webAppDirName}/WEB-INF"
-        dir.each {
-            if (new File(it).exists() == false) {
-                ant.echo it
-                ant.mkdir dir : it
-            }
+        dir << "src/${src.name}/resources"
+    }
+    dir << "${project.properties.webAppDirName}/WEB-INF"
+    dir.each {
+        if (new File(it).exists() == false) {
+            ant.echo it
+            ant.mkdir dir : it
         }
     }
+}
+
+def webDescriptor = {
+    def descriptor = "${project.properties.webAppDirName}/WEB-INF/web.xml"
+    def file = new File(descriptor)
+    if (file.exists() == false) {
+        def writer = new StringWriter()
+        def javaEE = 'http://java.sun.com/xml/ns/javaee'
+        writer << $/<?xml version="1.0" encoding="UTF-8"?>
+/$
+        def xml = new groovy.xml.MarkupBuilder(writer)
+        xml.'web-app' ('xmlns:xsi' : 'http://www.w3.org/2001/XMLSchema-instance',
+            xmlns : javaEE,
+            'xmlns:web' : "$javaEE/web-app_2_5.xsd",
+            'xsi:schemaLocation' : $/http://java.sun.com/xml/ns/javaee
+            http://java.sun.com/xml/ns/javaeeweb-app_2_5.xsd/$,
+            id : 'sample_web', version : '2.5', $/
+/$)
+        ant.echo "writing file : ${file.getName()}"
+        file.write(writer.toString(), 'UTF-8')
+    }
+}
+
+tasks.idea {
+    doFirst structure
+    doLast webDescriptor
 }
 
 tasks.withType (AbstractCompile).each {
