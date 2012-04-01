@@ -8,6 +8,8 @@ apply plugin : 'jetty'
 
 group = 'org.mikeneck.web.sample'
 version = '1.0.0'
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 
 def encoding = {it.encoding = 'UTF-8'}
 
