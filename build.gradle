@@ -62,9 +62,9 @@ def webDescriptor = {
     }
 }
 
-tasks.idea {
+tasks.ideaModule {
     doFirst structure
-    doLast webDescriptor
+    doFirst webDescriptor
 }
 
 tasks.withType (AbstractCompile).each {
