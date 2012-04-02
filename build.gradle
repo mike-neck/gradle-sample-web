@@ -94,9 +94,10 @@ task gitignore << {
 .idea/
 out/
 
-# dor gradle
+# for gradle
 .gradle
 target/
+build/
 
 # for git
 .gitignore
