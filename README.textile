@@ -1,0 +1,67 @@
+h1. Sample Web Application
+
+This project is a sample web application project which uses gradle as build tool.
+Using gradle's plugins are
+
+* java plugin
+* groovy plugin ( optional )
+* war plugin
+* jetty plugin
+* idea plugin ( you can use eclipse plugin of course )
+
+h1. LICENSE
+
+<pre><code class="txt">  Copyright 2012 mike_neck ( mike@mikeneck.org )
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+</code></pre>
+
+h1. How to install and run test
+
+h3. Install
+
+# Clone this project.
+# Run the command bellow
+<pre><code class="sh">$ gradle idea
+</code></pre>
+# There is idea's ipr file under the project home.
+# Load it with IntelliJ IDEA.
+
+h3. Run test
+
+# Run the command bellow
+<pre><code class="sh">$ gradle test
+</code></pre>
+# After the tests finishing, you can find directory build under the project home.
+# There is reports of test in <code>project-home/build/reports/tests/index.html</code>.
+
+h3. Git
+
+# Run the command bellow
+<pre><code class="sh">$ gradle gitignore
+</code></pre>
+# After this command, you can find <code>.gitignore</code> file is created.
+
+h3. Run Jetty
+
+# Be sure that the port 3000 is not used.
+# Run the commmand bellow
+<pre><code class="sh">$ gradle runJetty
+</pre></code>
+# Then you can access http://localhost:3000/project-name/mys
+# If it succeeds, the page will show *Hello, World*.
+# To stop Jetty, press Ctrl + C simultaneously in the terminal.
+
+h1. THINGS TO DO
+
+* TO ENABLE ECLIPSE
