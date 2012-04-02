@@ -106,3 +106,11 @@ build/
     def contents = "${gitignoreFile}${pName}/\n${extra}"
     new File('.gitignore').write(contents, 'UTF-8')
 }
+
+task customTask << { println 'do something' }
+customTask {println 'load task'}
+customTask << {println 'do task'}
+customTask.doFirst {println 'do first'}
+customTask.doFirst {println 'do more first'}
+customTask.doLast {println 'do last'}
+customTask << {println 'do lastly'}
