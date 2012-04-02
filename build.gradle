@@ -114,3 +114,10 @@ customTask.doFirst {println 'do first'}
 customTask.doFirst {println 'do more first'}
 customTask.doLast {println 'do last'}
 customTask << {println 'do lastly'}
+
+task showPath << {
+    project.configurations.each {
+        println it.name
+        println it.asPath
+    }
+}
