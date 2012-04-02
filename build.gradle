@@ -10,6 +10,7 @@ group = 'org.mikeneck.web.sample'
 version = '1.0.0'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
+httpPort = 3000
 
 def encoding = {it.encoding = 'UTF-8'}
 
